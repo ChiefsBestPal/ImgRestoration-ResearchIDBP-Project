@@ -98,7 +98,7 @@ for scenario_ind=1:1:3
             % estimate X_tilde
             % note that "Denoising_operation" is written for treating the denoiser as a "black box"
             % and not for the fastest performance (e.g. it may load the same DNN and copy between CPU and GPU in each iteration)
-            X_tilde = Denoising_operation(Y_tilde,sigma_alg,denoiser_choice);           
+            [~, X_tilde] = BM3D(0, Y_tilde, sigma, 'np', 0);         
             if max(X_tilde(:))<=1; X_tilde = X_tilde*255; end;
             
             % estimate Y_tilde
