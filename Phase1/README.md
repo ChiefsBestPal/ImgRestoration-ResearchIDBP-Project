@@ -10,7 +10,7 @@ Next you need to include the dataset name in the set:
 datasets = {'classics','BSD68'};
 ```
 
-The reason you we chose the "classic" and "BSD68" is because:
+The reason you we chose the "classic" and "BSD68" is because [6]:
 - These datasets contain real-world images. This better reflects real-world results.
 - Images are diverse, which gives a diverse test set.
 - These datasets are well-known, widely used, well understood, and ready available to/by the community. This allows other researchers to compare their own results.
@@ -80,7 +80,8 @@ observed_img(missing_pixels_ind) = unknown_signal(missing_pixels_ind);
 2. T. Tirer and R. Giryes, "Image Restoration by Iterative Denoising and Backward Projections," GitHub [https://github.com/tomtirer/IDBP]
 3. K. Dabov, A. Foi, V. Katkovnik and K. Egiazarian, "Image Denoising by Sparse 3-D Transform-Domain Collaborative Filtering," in IEEE Transactions on Image Processing, vol. 16, no. 8, pp. 2080-2095, Aug. 2007, doi: 10.1109/TIP.2007.901238. [https://ieeexplore.ieee.org/document/4271520]
 4. K. Dabov, A. Foi, V. Katkovnik and K. Egiazarian, "Image Denoising by Sparse 3-D Transform-Domain Collaborative Filtering," website and download [https://webpages.tuni.fi/foi/GCF-BM3D/index.html]
-5. S. V. Venkatakrishnan, C. A. Bouman and B. Wohlberg, "Plug-and-Play priors for model based reconstruction," 2013 IEEE Global Conference on Signal and Information Processing, Austin, TX, USA, 2013, pp. 945-948, doi: 10.1109/GlobalSIP.2013.6737048. [https://ieeexplore.ieee.org/document/6737048].
+5. S. V. Venkatakrishnan, C. A. Bouman and B. Wohlberg, "Plug-and-Play priors for model based reconstruction," 2013 IEEE Global Conference on Signal and Information Processing, Austin, TX, USA, 2013, pp. 945-948, doi: 10.1109/GlobalSIP.2013.6737048. [https://ieeexplore.ieee.org/document/6737048]
+6. Berkeley Segmentation Dataset 68 [https://www.kaggle.com/code/mpwolke/berkeley-segmentation-dataset-68]
 
 
 
