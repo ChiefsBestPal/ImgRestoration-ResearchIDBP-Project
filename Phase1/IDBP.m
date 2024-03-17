@@ -1,5 +1,10 @@
 function IDBP(index)
 
+    % Add all folders and subfolders to path
+    current_dir = pwd;
+    all_folders = genpath(current_dir);
+    addpath(all_folders);
+
     % Write to output file
     fileID = fopen('../MATLAB Drive/Phase1/images/output_log.txt', 'w');
     
