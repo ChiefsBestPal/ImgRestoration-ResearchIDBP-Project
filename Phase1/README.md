@@ -54,10 +54,10 @@ We created 80% missing pixels(NaN) on the "classic" dataset, but only 50% missin
 
 Now that the setup is done, we initializethe IDBP algorithm by convoluting the noisy + missing pixel image with a simple median scheme for inpainting. The median algorithm uses a dynamic median kernel, that increments in size after each iteration, to fill in all the NaN pixels. This algorithm is good for the case of inpainting because as more pixels are determined, the kernel grows to capture the local structure and feature of the image.
 
-After the median algorithm the IDBP algorithm is ran until a stop condition is met, in our case it is the ```iteration_max```. \ 
+After the median algorithm the IDBP algorithm is ran until a stop condition is met, in our case it is the ```iteration_max```. \
 x_tilda is estimated by using an off-the-shelf denoising operator ``` [~, unknown_signal] = BM3D(0, observed_img, sigma_alg, 'np', 0);``` \
 y_tilda is estimated by replacing the original noisy + missing pixel image with x_tilda denoised pixels:
-```
+```matlab
 observed_img = obs_img;
 observed_img(missing_pixels_ind) = unknown_signal(missing_pixels_ind);
 ```
