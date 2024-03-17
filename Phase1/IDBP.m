@@ -1,5 +1,10 @@
 function IDBP(index)
 
+    % Add all folders and subfolders to path
+    current_dir = pwd;
+    all_folders = genpath(current_dir);
+    addpath(all_folders);
+
     % Write to output file
     fileID = fopen('../MATLAB Drive/Phase1/images/output_log.txt', 'w');
     
@@ -8,7 +13,7 @@ function IDBP(index)
     which_dataset = datasets{index};
     
     % Get array of all data paths and their names
-    img_paths = fullfile('..', 'MATLAB Drive', 'Phase1', 'test_sets', which_dataset);
+    img_paths = fullfile('..', 'MATLAB Drive', 'Phase1', 'datasets', which_dataset);
     img_struct = dir(fullfile(img_paths, '*.png'));
     img_names = {img_struct.name};
     img_full_paths = fullfile(img_paths, img_names);
@@ -83,7 +88,6 @@ function IDBP(index)
             missing_pixels_ind = randperm(num_of_pixels, num_of_missing_pixels);
             og_img = x;
             og_img(missing_pixels_ind) = 0;
-            
             % Adding random noise + missing pixels again after the random noise
             noise = imnoise(zeros(size(og_img)), 'gaussian', 0, sigma_e);
             obs_img = og_img + noise;
@@ -92,14 +96,14 @@ function IDBP(index)
             % IDBP algorithm
             % Using median transformation for missing pixels for
             % initialization
-            unknown_signal = median_inpainting(obs_img, missing_pixels_ind);
+            unknown_signal = median_initialization(obs_img, missing_pixels_ind);
             observed_img = unknown_signal;
-            sigma_alg = sigma_e + delta;
+            sigma = sigma_e + delta;
             
             for k=1:1:iteration_max
                 
                 % Estimate unknown_signal (x_k)
-                [~, unknown_signal] = BM3D(0, observed_img, sigma_alg, 'np', 0);     
+                [~, unknown_signal] = BM3D(0, observed_img, sigma, 'np', 0);     
                 % Check if intensity is 0-1, if so convert to 0-255
                 if max(unknown_signal(:)) <= 1
                     unknown_signal = unknown_signal * 255; 
@@ -111,6 +115,7 @@ function IDBP(index)
                 
                 % PSNR
                 % Ensure that intensities is 0-255
+                
                 unknown_signal_255 = min(max(unknown_signal, 0), 255);
                 MSE = mean((x(:) - unknown_signal_255(:)).^2);
                 PSNR = 10 * log10(255^2 / MSE);
