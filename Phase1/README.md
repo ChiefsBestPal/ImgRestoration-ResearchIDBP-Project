@@ -1,5 +1,7 @@
-Our MatLab function was inspired by the GitHub provided by the researchers [2].
-To run the function note that our function was written using the online MatLab program which causes difference in the files paths and may require you to addpath() the folders that are required.
+# MatLab Code Explanation
+## Ryan Li - 40214839 & Antoine Cantin - 40211205
+Our MatLab function was inspired by the GitHub provided by the researchers [2]. \
+Note that our function was written using the online MatLab program. This may cause differences in the files paths and would require you to addpath() the folders that are required to run the function.
 
 The IDBP function takes parameter index, from 1-..., which determines which dataset to perform on. 
 To add a dataset, you need to add the new dataset in the ```datasets``` folder.
@@ -62,12 +64,12 @@ We created 80% missing pixels(NaN) on the "classic" dataset, but only 50% missin
 Now that the setup is done, we initializethe IDBP algorithm by convoluting the noisy + missing pixel image with a simple median scheme for inpainting. The median algorithm uses a dynamic median kernel, that increments in size after each iteration, to fill in all the NaN pixels. This algorithm is good for the case of inpainting because as more pixels are determined, the kernel grows to capture the local structure and feature of the image [1].
 
 After the median algorithm the IDBP algorithm is ran until a stop condition is met, in our case it is the ```iteration_max```. \
-$x^{\tilde{}}$ is estimated by using an off-the-shelf denoising operator [3][4][5]:
+$x^{\widetilde{}}$ is estimated by using an off-the-shelf denoising operator [3][4][5]:
 ```matlab 
 [~, unknown_signal] = BM3D(0, observed_img, sigma_alg, 'np', 0);
 ```
 
-$y^{\tilde{}}$ is estimated by replacing the original noisy + missing pixel image with $x^{\tilde{}}$ denoised pixels:
+$y^{\widetilde{}}$  is estimated by replacing the original noisy + missing pixel image with $x^{\widetilde{}}$  denoised pixels:
 ```matlab
 observed_img = obs_img;
 observed_img(missing_pixels_ind) = unknown_signal(missing_pixels_ind);
