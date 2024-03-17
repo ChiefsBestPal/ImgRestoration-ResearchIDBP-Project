@@ -2,7 +2,10 @@ To run the function note that our function was written using the online MatLab p
 
 The IDBP function takes parameter index, from 1-..., which determines which dataset to perform on. 
 To add a dataset, you need to add the new dataset in the ```datasets``` folder.
-Next you need to include the dataset name in the set ```datasets = {'classics','BSD68'};```
+Next you need to include the dataset name in the set:
+```matlab
+datasets = {'classics','BSD68'};
+```
 
 The reason you we chose the "classic" and "BSD68" is because:
 - These datasets contain real-world images. This better reflects real-world results.
@@ -17,7 +20,7 @@ The SSIM is a metric that compares the structural similarity between the origina
 The PSNR and SSIM values are outputed in the console as well as witten into ```output_log.txt```
 
 Once the dataset is determined and the PSNR and SSIM arrays are initialized, we start the algorithm:
-```
+```matlab
 for scenario=1:1:num_of_scenarios
         for img=1:1:num_of_imgs
             ...
@@ -26,7 +29,7 @@ end
 ```
 
 IDBP works with grayscaled images, therefore any image with rbg channels are converted to grayscale:
-```
+```matlab
 if ndims(x) == 3
       x = rgb2gray(x);
 end
@@ -34,7 +37,7 @@ end
 If the image has an intensity value greater than 255, then the image is invalid and the function stops.
 
 The experiment is run under 3 scenarios for each image:
-```
+```matlab
  if scenario == 1
     iteration_max = 150;
     sigma_e = 0;
@@ -49,14 +52,21 @@ elseif scenario == 3
     delta = 0;
 end
 ```
-Here sigma_e is used to produce random gaussian noise for the image: ```noise = imnoise(zeros(size(og_img)), 'gaussian', 0, sigma_e);```
+Here sigma_e is used to produce random gaussian noise for the image: 
+```matlab 
+noise = imnoise(zeros(size(og_img)), 'gaussian', 0, sigma_e);
+```
 We created 80% missing pixels(NaN) on the "classic" dataset, but only 50% missing pixels on the "BSD68" dataset. This is because as stated in the paper, 80% produced a very low average SSIM score and was not viable.
 
 Now that the setup is done, we initializethe IDBP algorithm by convoluting the noisy + missing pixel image with a simple median scheme for inpainting. The median algorithm uses a dynamic median kernel, that increments in size after each iteration, to fill in all the NaN pixels. This algorithm is good for the case of inpainting because as more pixels are determined, the kernel grows to capture the local structure and feature of the image.
 
 After the median algorithm the IDBP algorithm is ran until a stop condition is met, in our case it is the ```iteration_max```. \
-x_tilda is estimated by using an off-the-shelf denoising operator ``` [~, unknown_signal] = BM3D(0, observed_img, sigma_alg, 'np', 0);``` \
-y_tilda is estimated by replacing the original noisy + missing pixel image with x_tilda denoised pixels:
+$x\tilde{}$ is estimated by using an off-the-shelf denoising operator 
+```matlab 
+[~, unknown_signal] = BM3D(0, observed_img, sigma_alg, 'np', 0);
+```
+
+$y\tilde{}$ is estimated by replacing the original noisy + missing pixel image with $x\tilde{}$ denoised pixels:
 ```matlab
 observed_img = obs_img;
 observed_img(missing_pixels_ind) = unknown_signal(missing_pixels_ind);
