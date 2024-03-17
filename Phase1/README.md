@@ -1,6 +1,6 @@
 # MatLab Code Explanation
 ## Ryan Li - 40214839 & Antoine Cantin - 40211205
-Our MatLab function was inspired by the GitHub provided by the researchers [2]. \
+Our MatLab function was based on the MatLab code on GitHub provided by the researchers and other nested reference links [2]. \
 Note that our function was written using the online MatLab program. This may cause differences in the files paths and would require you to addpath() the folders that are required to run the function.
 
 The IDBP function takes parameter index, from 1-..., which determines which dataset to perform on. 
