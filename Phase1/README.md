@@ -1,3 +1,4 @@
+Our MatLab function was inspired by the GitHub provided by the researchers [2].
 To run the function note that our function was written using the online MatLab program which causes difference in the files paths and may require you to addpath() the folders that are required.
 
 The IDBP function takes parameter index, from 1-..., which determines which dataset to perform on. 
@@ -56,18 +57,28 @@ Here sigma_e is used to produce random gaussian noise for the image:
 ```matlab 
 noise = imnoise(zeros(size(og_img)), 'gaussian', 0, sigma_e);
 ```
-We created 80% missing pixels(NaN) on the "classic" dataset, but only 50% missing pixels on the "BSD68" dataset. This is because as stated in the paper, 80% produced a very low average SSIM score and was not viable.
+We created 80% missing pixels(NaN) on the "classic" dataset, but only 50% missing pixels on the "BSD68" dataset. This is because as stated in the paper, 80% produced a very low average SSIM score and was not viable [1].
 
-Now that the setup is done, we initializethe IDBP algorithm by convoluting the noisy + missing pixel image with a simple median scheme for inpainting. The median algorithm uses a dynamic median kernel, that increments in size after each iteration, to fill in all the NaN pixels. This algorithm is good for the case of inpainting because as more pixels are determined, the kernel grows to capture the local structure and feature of the image.
+Now that the setup is done, we initializethe IDBP algorithm by convoluting the noisy + missing pixel image with a simple median scheme for inpainting. The median algorithm uses a dynamic median kernel, that increments in size after each iteration, to fill in all the NaN pixels. This algorithm is good for the case of inpainting because as more pixels are determined, the kernel grows to capture the local structure and feature of the image [1].
 
 After the median algorithm the IDBP algorithm is ran until a stop condition is met, in our case it is the ```iteration_max```. \
-$x\tilde{}$ is estimated by using an off-the-shelf denoising operator 
+$x^{\tilde{}}$ is estimated by using an off-the-shelf denoising operator [3][4][5]:
 ```matlab 
 [~, unknown_signal] = BM3D(0, observed_img, sigma_alg, 'np', 0);
 ```
 
-$y\tilde{}$ is estimated by replacing the original noisy + missing pixel image with $x\tilde{}$ denoised pixels:
+$y^{\tilde{}}$ is estimated by replacing the original noisy + missing pixel image with $x^{\tilde{}}$ denoised pixels:
 ```matlab
 observed_img = obs_img;
 observed_img(missing_pixels_ind) = unknown_signal(missing_pixels_ind);
 ```
+
+## References
+1. T. Tirer and R. Giryes, "Image Restoration by Iterative Denoising and Backward Projections," in IEEE Transactions on Image Processing, vol. 28, no. 3, pp. 1220-1234, March 2019, doi: 10.1109/TIP.2018.2875569. [https://ieeexplore.ieee.org/abstract/document/8489894]
+2. T. Tirer and R. Giryes, "Image Restoration by Iterative Denoising and Backward Projections," GitHub [https://github.com/tomtirer/IDBP]
+3. K. Dabov, A. Foi, V. Katkovnik and K. Egiazarian, "Image Denoising by Sparse 3-D Transform-Domain Collaborative Filtering," in IEEE Transactions on Image Processing, vol. 16, no. 8, pp. 2080-2095, Aug. 2007, doi: 10.1109/TIP.2007.901238. [https://ieeexplore.ieee.org/document/4271520]
+4. K. Dabov, A. Foi, V. Katkovnik and K. Egiazarian, "Image Denoising by Sparse 3-D Transform-Domain Collaborative Filtering," website and download [https://webpages.tuni.fi/foi/GCF-BM3D/index.html]
+5. S. V. Venkatakrishnan, C. A. Bouman and B. Wohlberg, "Plug-and-Play priors for model based reconstruction," 2013 IEEE Global Conference on Signal and Information Processing, Austin, TX, USA, 2013, pp. 945-948, doi: 10.1109/GlobalSIP.2013.6737048. [https://ieeexplore.ieee.org/document/6737048].
+
+
+
