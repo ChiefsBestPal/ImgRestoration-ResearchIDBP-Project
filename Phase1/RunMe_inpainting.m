@@ -30,6 +30,8 @@ N_images = size(images_list,1);
 all_results_PSNR = zeros(3,N_images);
 all_results_ssim = zeros(3,N_images);
 
+fileID = fopen('../MATLAB Drive/Phase1/images/output_log.txt', 'w');
+
 for scenario_ind=1:1:3
     for image_ind=1:1:N_images
         %% prepare observations
@@ -98,7 +100,7 @@ for scenario_ind=1:1:3
             % estimate X_tilde
             % note that "Denoising_operation" is written for treating the denoiser as a "black box"
             % and not for the fastest performance (e.g. it may load the same DNN and copy between CPU and GPU in each iteration)
-            [~, X_tilde] = BM3D(0, Y_tilde, sigma, 'np', 0);         
+            [~, X_tilde] = BM3D(0, Y_tilde, sigma_alg, 'np', 0);         
             if max(X_tilde(:))<=1; X_tilde = X_tilde*255; end;
             
             % estimate Y_tilde
@@ -109,6 +111,7 @@ for scenario_ind=1:1:3
             X_tilde_clip = X_tilde; X_tilde_clip(X_tilde<0) = 0; X_tilde_clip(X_tilde>255) = 255;
             PSNR = 10*log10(255^2/mean((X0(:)-X_tilde_clip(:)).^2));
             disp(['IDBP: finished iteration ' num2str(k) ', PSNR for X_tilde = ' num2str(PSNR)]);
+            fprintf(fileID, ['IDBP: finished iteration ' num2str(k) ', PSNR for X_tilde = ' num2str(PSNR) '\n']);
         end
         
         if sig_e == 0 % i.e. if scenario_ind==1
@@ -117,6 +120,7 @@ for scenario_ind=1:1:3
             X_tilde_clip = X_tilde; X_tilde_clip(X_tilde<0) = 0; X_tilde_clip(X_tilde>255) = 255;
             PSNR = 10*log10(255^2/mean((X0(:)-X_tilde_clip(:)).^2));
             disp(['IDBP (noiseless case): finished iteration ' num2str(k) ', PSNR for X_tilde = ' num2str(PSNR)]);
+            fprintf(fileID, ['IDBP (noiseless case): finished iteration ' num2str(k) ', PSNR for X_tilde = ' num2str(PSNR) '\n']);
         end
         
         
@@ -126,6 +130,7 @@ for scenario_ind=1:1:3
         ssim_res = ssim(double(X_tilde_clip)/255,double(X0)/255); % we use MATLAB R2016a function
         all_results_ssim(scenario_ind,image_ind) = ssim_res;
         disp(['scenario_ind=' num2str(scenario_ind) ', image_ind=' num2str(image_ind) ', PSNR=' num2str(PSNR) ', SSIM=' num2str(ssim_res)]);
+        fprintf(fileID, ['scenario_ind=' num2str(scenario_ind) ', image_ind=' num2str(image_ind) ', PSNR=' num2str(PSNR) ', SSIM=' num2str(ssim_res) '\n']);
 
         % Display original, observed, and inpainted images
         figure;
@@ -141,8 +146,25 @@ for scenario_ind=1:1:3
         imshow(uint8(X_tilde));
         title('Inpainted Image');
 
+        % Define folder path
+        folder_path = '../MATLAB Drive/Phase1/images/';
+
+        % Save original image
+        original_image_path = fullfile(folder_path, ['original_image(' num2str(scenario_ind) ',' num2str(image_ind) ').png']);
+        imwrite(uint8(X0), original_image_path);
+        
+        % Save observed image
+        observed_image_path = fullfile(folder_path, ['observed_image(' num2str(scenario_ind) ',' num2str(image_ind) ').png']);
+        imwrite(uint8(Y), observed_image_path);
+        
+        % Save inpainted image
+        inpainted_image_path = fullfile(folder_path, ['inpainted_image(' num2str(scenario_ind) ',' num2str(image_ind) ').png']);
+        imwrite(uint8(X_tilde), inpainted_image_path);
+
     end
 end
+
+fclose(fileID);
 
 
 
