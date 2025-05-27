@@ -1,7 +1,68 @@
 # Image Restoration and Deblurring using IDBP P&P algorithms, CNNs and various Denoisers
 
-# References, Resources, Links (Papers, Codebases, Datasets)
+# Table of contents
 
+[...] TODO
+
+# IDBP: Overview
+
+## Demos 
+
+### before and after
+[...] TODO
+### matlab run
+[...] TODO
+
+## IDBP Purpose; Restoring images within a versatile and efficient framework
+
+The Iterative Denoising and Backward Projections, IDBP in short, is a method that reconstructs the
+original image by removing the unwanted signals from the artifact iteratively. It is an alternative
+method that addresses the issues and difficulties when it comes to using the Plug & Play method for
+denoising, inpainting, and deblurring an image
+Both IDBP and P&P are numerical solutions to image restoration inverse problems. Typically, image
+restoration involves cost functions that quantify the difference between the observed degraded image
+and the original, clean image. The cost function is composed of two parts, the measurement mode
+and the image prior. The measurement mode describes how the data is acquired or observed, while
+the image prior describes assumptions and constraints of what the original image should visualize as.
+For a given prior information, the goal is to minimize the cost function to find an estimate of the
+original clean image.
+The Plug & Play method uses a cost function as part of their optimization process. Its purpose is to
+decouple its two components and define the image prior using off-the-shelf denoising operators
+instead of having human exclusive input constraints. While this method generally pulls this off, there
+are some drawbacks. The P&P method’s parameter tuning is very burdensome which requires time
+and effort to find proper adjustment. The method also uses the ADMM algorithm that runs iteratively to
+find convergence. An issue with this iterative algorithm is that it may take a large amount of iterations,
+thus losing computation time. In addition to the ADMM algorithm and its convergence, its components
+must be convex, closed, and proper. These properties are not ideal because most prior functions with
+off-the-shelf denoisers are non-convex and unclear.
+Key index terms for P&P / Paper’s baseline: Decoupling measure models and priors, Denoisers,
+Solving general inverse problems, Iterative Optimization, Parameter Tuning
+The Iterative Denoising and Backward Projections method aims to address all of these problems
+when denoising, inpainting, or deblurring a degraded image. It transforms the cost function into an
+optimization problem and proposes an efficient minimization scheme for the prior term using P&P
+properties. Finally, it proposes an automatic tuning mechanism for parameters that vary between
+noisy inpainting problems and deblurring automatic parameters.
+
+## Quick overview of Key concepts and Index terms
+
+1. Concepts and Key Image Processing theory: See [IndexTerms_notes.md]
+2. Math and Formal theory: See [IDBP_math_research_notes.ipynb]
+
+## Our Paper(s)
+
+[To be Uploaded soon... written almost year ago]
+### Phase 1
+
+[...] TODO
+
+### Phase 2
+
+[...] TODO
+
+# Results and compiled training logs/data
+Phase2(&3+Final paper): https://drive.google.com/drive/u/0/folders/1B4dDQso_TP_I8qZJWxpy9UYYNGxIquGY
+
+# References, Resources, Links (Papers, Codebases, Datasets)
 
 ## IDBP; main framework 
 - IEEE: https://ieeexplore.ieee.org/abstract/document/8489894
