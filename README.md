@@ -1,17 +1,22 @@
 # Image Restoration and Deblurring using IDBP P&P algorithms, CNNs and various Denoisers
 
-# Table of contents
-
-[...] TODO
-
 # IDBP: Overview
 
 ## Demos 
+### Example of our Inpainting IDBP-extension 
+<img width="256" height="256" alt="1_Cameraman256" src="https://github.com/user-attachments/assets/dd874f90-2bff-40fa-a456-22d3fbda270e" />
+<img width="256" height="256" alt="1_Cameraman256_inpainted" src="https://github.com/user-attachments/assets/c54a6184-a543-49dd-b55e-a1d387f879fe" />
 
-### before and after
-[...] TODO
-### matlab run
-[...] TODO
+### Final paper presentation
+> PDF of presentation slides: [IDBP_Research_Presentation_COMP478.pdf](https://github.com/user-attachments/files/21703628/IDBP_Research_Presentation_COMP478.pdf)
+
+<img width="1049" height="487" alt="image" src="https://github.com/user-attachments/assets/423880f4-e976-493c-be05-aafd038fce40" />
+<img width="1203" height="680" alt="image" src="https://github.com/user-attachments/assets/78fd38a0-6c94-4338-b074-994a8e074b2d" />
+<img width="1206" height="672" alt="image" src="https://github.com/user-attachments/assets/3ffa7528-f733-4a65-a06a-8fa8af2248c2" />
+
+
+### matlab run of custom interfaces
+See Phase2 videos and google drive links
 
 ## IDBP Purpose; Restoring images within a versatile and efficient framework
 
@@ -48,16 +53,10 @@ noisy inpainting problems and deblurring automatic parameters.
 1. Concepts and Key Image Processing theory: See [IndexTerms_notes.md]
 2. Math and Formal theory: See [IDBP_math_research_notes.ipynb]
 
-## Our Paper(s)
+## Our Final Paper
+Applied to phone cameras and real world applications \
+URL: [478 Final Report.pdf](https://github.com/user-attachments/files/21703633/478.Final.Report.pdf)
 
-[To be Uploaded soon... written almost year ago]
-### Phase 1
-
-[...] TODO
-
-### Phase 2
-
-[...] TODO
 
 # Results and compiled training logs/data
 Phase2(&3+Final paper): https://drive.google.com/drive/u/0/folders/1B4dDQso_TP_I8qZJWxpy9UYYNGxIquGY
