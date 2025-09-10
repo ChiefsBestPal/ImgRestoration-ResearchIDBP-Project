@@ -1,4 +1,17 @@
-# Image Restoration and Deblurring using IDBP P&P algorithms, CNNs and various Denoisers
+# ExtendedIDBP
+> Since 2024 
+
+Reconstruct, Enhance, Deblur and Denoise degraded smartphone pictures
+- **Industry use cases**: Specifically trained on brands/models of smartphones and different type of damage: optical abberations, bad compression, low quality, missing/cutoff parts and general severe artifacts
+- **Open-source research, data and software**: Extends emerging publications from conferences (ICIP,CVF,CVIP), mainly IDBP & IRCNN papers (See READMEs references)
+- **Multi-method**: Deep-learning networks, iteratively optimized image processing mathematical models, signal processing metrics/logging, information theory for noise classes
+- **MATLAB GUI** to input smarphone images or sequences/signals to try restoration frameworks; with observability & monitoring, smartphone metadata configs, parameter tuning
+
+## Created by 
+- **Lead & Maintainer, author/dev** : <ins>Antoine Cantin @ChiefsBestPal</ins>
+- **author/dev** : <ins>Ryan Li @Ryan2Li</ins>
+- original peer-reviews : see cloud and papers
+- OSS/Academic Contributors: [Contact @ChiefsBestPal] for full-access and info
 
 # IDBP: Overview
 
