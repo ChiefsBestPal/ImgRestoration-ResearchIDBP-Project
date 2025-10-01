@@ -1,5 +1,6 @@
 # ExtendedIDBP
-> Since 2024 
+> Jan 2024 - Present (Open-source) 
+![ExtendedIDBP_6sec_Demo](https://github.com/user-attachments/assets/0562926f-06b2-4675-b031-ae540a2c0cea)
 
 Reconstruct, Enhance, Deblur and Denoise degraded smartphone pictures
 - **Industry use cases**: Specifically trained on brands/models of smartphones and different type of damage: optical abberations, bad compression, low quality, missing/cutoff parts and general severe artifacts
